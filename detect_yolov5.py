@@ -126,7 +126,7 @@ class Detection():
         self.device = "0"  # cuda device, i.e. 0 or 0,1,2,3 or cpu
         self.classes = [0, 1]  # filter by class: --class 0, or --class 0 2 3
         self.agnostic_nms = False  # class-agnostic NMS
-        self.half = True  # use FP16 half-precision inference
+        self.half = False  # use FP16 half-precision inference
         self.dnn = False  # use OpenCV DNN for ONNX inference
         self.name = None
 
@@ -179,7 +179,7 @@ class Detection():
 
                     for *xyxy, conf, cls in reversed(det):
                         x1, y1, x2, y2 = list(map(relu, xyxy))
-                        detect_list.append([x1, y1, x2, y2, self.names[int(cls)]])
+                        detect_list.append([x1, y1, x2, y2, self.names[int(cls)], float(conf)])
             return detect_list
 
 
